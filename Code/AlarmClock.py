@@ -13,6 +13,29 @@
 import time
 import os
 import sys
+import RPi.GPIO as GPIO
+from lib_nrf24 import NRF24
+import spidev
+
+GPIO.setmode(GPIO.BCM)
+
+pipes = [[0xe7, 0xe7, 0xe7, 0xe7, 0xe7], [0xc2, 0xc2, 0xc2, 0xc2, 0xc2]]
+
+radio = NRF24(GPIO, spidev.SpiDev())
+radio(0, 17)
+radio.setPayloadSize(32)
+radio.setChannel(0x60)
+
+radio.setDataRate(NRF24.BR_2MBPS)
+radio.setPALevel(NRF214.PA_MIN)
+radio.setAutoAck(True)
+radio.enabledDynamicPayload()
+radio.enableAckPayload()
+
+radio.openWritingPipe(1, pipes[0])
+radio.printDetais()
+
+
 
 DEBUG = 1
 
