@@ -47,13 +47,11 @@ radio.begin(0, 17)
 radio.setPayloadSize(32)
 radio.setChannel(0x60)
 radio.setDataRate(NRF24.BR_2MBPS)
-radio.setPALevel(NRF214.PA_MIN)
-radio.enableDynamicPayload()
+radio.setPALevel(NRF24.PA_MIN)
+#radio.enableDynamicPayload()
 radio.enableAckPayload()
-
-radio.openWritingPipe(1, pipes[0])
-radio.printDetais()
-
+radio.openWritingPipe(pipes[0])
+radio.printDetails()
 
 #
 '''
@@ -80,8 +78,10 @@ while True:
 counter = 0
 while True:
     if counter % 2 == 0:
-        radio.write(list("LIGHT_SWITCH_ON"))
+        print("LIGHT_SWITCH_ON")
+	radio.write(list("LIGHT_SWITCH_ON"))
     else:
+	print("LIGHT_SWITCH_OFF")
         radio.write(list("LIGHT_SWITCH_OFF"))
     counter += 1
     time.sleep(1)
