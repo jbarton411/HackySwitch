@@ -43,24 +43,25 @@ except ValueError as e:
 GPIO.setmode(GPIO.BCM)
 pipes = [[0xe7, 0xe7, 0xe7, 0xe7, 0xe7], [0xc2, 0xc2, 0xc2, 0xc2, 0xc2]]
 radio = NRF24(GPIO, spidev.SpiDev())
-radio(0, 17) #GPIO pin 17
+radio.begin(0, 17)
 radio.setPayloadSize(32)
 radio.setChannel(0x60)
 radio.setDataRate(NRF24.BR_2MBPS)
 radio.setPALevel(NRF214.PA_MIN)
 radio.enableDynamicPayload()
 radio.enableAckPayload()
+
 radio.openWritingPipe(1, pipes[0])
 radio.printDetais()
 
 
-
+#
+'''
 while True:
 	now = time.localtime()
 	if hour == now.tm_hour and minute == now.tm_min:
         continueSending = True
         while continueSending:
-            print("WAKE TF UP!!!")
             radio.write(list("LIGHT_SWITCH_ON"))
             if radio.isAckPayloadAvailable():
                 returnedPL = []
@@ -74,5 +75,15 @@ while True:
                 break #breaks out of while 1
 	
 	time.sleep(61 - now.tm_sec)
+'''
 
-print "Exited successfully"
+counter = 0
+while True:
+    if counter % 2 == 0:
+        radio.write(list("LIGHT_SWITCH_ON"))
+    else:
+        radio.write(list("LIGHT_SWITCH_OFF"))
+    counter += 1
+    time.sleep(1)
+
+print("Exited successfully")
