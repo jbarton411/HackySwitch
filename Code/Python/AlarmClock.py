@@ -24,7 +24,7 @@ DEBUG = 1
 sa = sys.argv
 lsa = len(sys.argv)
 if lsa != 2:
-    print(")Usage: AlarmClock.py <time>")
+    print("Usage: AlarmClock.py <time>")
     sys.exit(1)
 wake_up_time = sa[1]
 try:
@@ -36,12 +36,12 @@ try:
     if minute < 0 or minute > 59:
         raise ValueError('Minute must be between 0-59')
 except ValueError as e:
-    print e.args
+    print(e.args)
 
 
 ## GPIO SETUP ##
 GPIO.setmode(GPIO.BCM)
-pipes = [[0xF0F0F0F0E1LL], [0XF0F0F0F0D2LL]]
+pipes = [[0xe7, 0xe7, 0xe7, 0xe7, 0xe7], [0xc2, 0xc2, 0xc2, 0xc2, 0xc2]]
 radio = NRF24(GPIO, spidev.SpiDev())
 radio(0, 17) #GPIO pin 17
 radio.setPayloadSize(32)
