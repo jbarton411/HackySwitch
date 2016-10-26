@@ -79,9 +79,9 @@ counter = 0
 while True:
     if counter % 2 == 0:
         print("LIGHT_SWITCH_ON")
-	radio.write(list("LIGHT_SWITCH_ON"))
+        radio.write(list("LIGHT_SWITCH_ON"))
     else:
-	print("LIGHT_SWITCH_OFF")
+        print("LIGHT_SWITCH_OFF")
         radio.write(list("LIGHT_SWITCH_OFF"))
     counter += 1
     time.sleep(1)
